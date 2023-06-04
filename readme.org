@@ -1,0 +1,260 @@
+#+OPTIONS: ^:nil
+* Making Music with Sonic Pi
+Sonic Pi is a new musical instrument that you play by writing programs!
+** Samples
+#+begin_src ruby
+sample :drum_roll, attack: 1, release: 0, sustain: 2
+sleep 3
+sample :drum_splash_hard, amp: 1.5
+#+end_src
+** Loops
+#+begin_src ruby
+4.times do
+  sample :drum_cymbal_closed
+  sleep 0.5
+end
+
+live_loop :drums do
+  sample :drum_bass_hard
+  sleep 0.25
+  sample :drum_cymbal_closed
+  sleep 0.25
+  sample :drum_snare_hard
+  sleep 0.25
+  sample :drum_cymbal_closed
+  sleep 0.25
+end
+#+end_src
+** Synths
+[[adsr.png]]
+#+begin_src ruby
+use_synth :fm
+play :c, attack: 1, decay: 0, sustain: 0, release: 1, amp: 0.5, pan: rrand(-0.5,0.5)
+#+end_src
+[[https://sonic-pi.net/tutorial.html#section-A-13][Credit]]
+** Notes
+#+begin_src ruby
+live_loop :bass do
+  use_synth :tb303
+  play :c2
+  sleep 0.5
+end
+
+live_loop :riff do
+  use_synth :pulse
+  play :c, attack: 0.5, sustain: 0.5, release: 0.5
+  sleep 1
+  play :g, pan: rrand(-0.5, 0.5)
+  sleep 0.5
+  play :e
+  sleep 0.5
+end
+#+end_src
+** Randomness
+#+begin_src ruby
+live_loop :my_random_beat do
+  use_random_seed 220
+  16.times do
+    sample :elec_hi_snare if one_in 3
+    sample :drum_cymbal_closed if one_in 3
+    sample :drum_cymbal_pedal if one_in 5
+    sample :bd_haus if one_in 3
+    sleep 0.125
+  end
+end
+
+live_loop :my_tune do
+  use_synth :prophet
+  notes = scale :c4, :minor_pentatonic
+  use_random_seed 40
+  6.times do
+    play notes.choose
+    sleep [0.25, 0.5].choose
+  end
+end
+#+end_src
+[[https://sonic-pi.net/tutorial.html#section-A-13][Credit]]
+** Tick
+#+begin_src ruby
+use_synth :piano
+play [:c, :e, :g]
+sleep 1
+play (chord :c, :major)
+sleep 1
+live_loop :play do
+  play (chord :c, :major).tick
+  sleep 0.5
+  stop if look > 2
+end
+#+end_src
+** Scales
+[[scale.png]]
+#+begin_src ruby
+live_loop :up_and_down do
+  use_synth :dsaw
+  play (scale :c4, :major_pentatonic).reflect.butlast.tick
+  sleep 0.25
+end
+#+end_src
+Credit to [[https://sonic-pi.mehackit.org/exercises/en/10-cheatsheet/01-cheatsheet.html][mehackit]]
+** Chords
+#+begin_src ruby
+use_synth :beep
+live_loop :chords do
+  [1, 3, 6, 4].each do |d|
+    (range -3, 3).each do |i|
+      play_chord (chord_degree d, :c, :major, 3, invert: i)
+      sleep 0.25
+    end
+  end
+end
+#+end_src
+Credit to [[https://twitter.com/wpgFactoid/status/666692596605976576][Adrian Cheater]]
+** Drum patterns
+#+begin_src ruby
+define :pattern do |p|
+  return p.ring.look == 'x'
+end
+
+use_bpm 90
+
+live_loop :drums do
+  tick
+  sample :drum_bass_hard  if pattern "x-x-----x-x--x--"
+  sample :drum_snare_hard if pattern "----x--x-x-xx---"
+  sample :drum_cymbal_closed
+  sleep 0.25
+end
+#+end_src
+Credit for [[https://www.onemotion.com/drum-machine/][funk pattern]], [[https://in-thread.sonic-pi.net/t/technique-for-playing-drum-samples-in-pattern/6332/2][pattern]]
+** Effects
+#+begin_src ruby
+with_fx :slicer do
+  live_loop :breakbeat do
+    sample :loop_breakbeat, beat_stretch: 2, amp: 2
+    sleep 2
+  end
+end
+#+end_src
+* Examples
+** Basic drums
+#+begin_src ruby
+sample :drum_roll, attack: 0.5, release: 0, sustain: 2.5
+sleep 3
+sample :drum_splash_hard
+
+4.times do
+  sample :drum_bass_hard
+  sleep 0.5
+  sample :drum_cymbal_closed
+  sleep 0.5
+  sample :drum_snare_hard
+  sleep 0.5
+  sample :drum_cymbal_closed
+  sleep 0.5
+end
+
+sample :drum_bass_hard
+#+end_src
+** Drum machine
+#+begin_src ruby
+use_bpm 90
+live_loop :drums do
+  use_random_seed 2021
+  16.times do
+    tick
+    sample :drum_bass_hard  if pattern "x-x-----x-x--x--"
+    sample :drum_snare_hard if one_in 2
+    sample :drum_cymbal_closed
+    sleep 0.25
+  end
+end
+#+end_src
+** Song generator
+#+begin_src ruby
+# chords = [(chord :C, :minor7), (chord :Ab, :major7),
+#  (chord :Eb, :major7), (chord :Bb, "7")].ring
+
+chords = [(chord :A, :minor), (chord :F, :major),
+  (chord :G, :major), (chord :C, :major)]
+
+chosen = chords[0]
+
+live_loop :melody do
+  stop
+  use_synth :blade
+  r = [0.25, 0.25, 0.5, 1].choose
+  play chosen.choose #, attack: 0, release: r
+  sleep r
+end
+
+live_loop :keys do
+  stop
+  use_synth :blade
+  play chosen
+  sleep 1
+end
+
+live_loop :bass do
+  use_synth :fm
+  use_octave -2
+  3.times do
+    play chosen[0]
+    sleep 1
+  end
+  play chosen[2]
+  sleep 0.5
+  play chosen[1]
+  sleep 0.5
+  chosen = chords.tick
+end
+
+live_loop :perc do
+  stop
+  sample :drum_cymbal_closed, amp: 0.5
+  sleep 0.25
+end
+
+live_loop :perc1 do
+  stop
+  sample :ambi_choir, release: 5, slice: 0.5
+  3.times do
+    sample :drum_bass_hard, amp: 2
+    sleep 1
+  end
+  2.times do
+    sample :drum_bass_hard, amp: 2
+    sleep 0.5
+  end
+  4.times do
+    sample :drum_bass_hard, amp: 2
+    sleep 1
+  end
+end
+#+end_src
+Credit to [[https://sonic-pi.mehackit.org/exercises/en/04-generate-sounds/04-chord-progressions.html][mehackit]]
+* Next steps
+
+Check out what other people are doing and remix their work! Good places to go are the Sonic Pi [[https://sonic-pi.net/tutorial.html][tutorial]], [[https://in-thread.sonic-pi.net/][forums]], or other people's YouTube channels
+
+Need help tying your song together?
+
+- [[https://b.shittyrecording.studio/file/shittyrec/print/Pocket+Operations+(2019-07-01).pdf][Drum patterns]]
+- [[https://sonic-pi.mehackit.org/exercises/en/09-keys-chords-and-scales/01-piano.html][Note names (and sounds!) and chord progressions]]
+
+Need inspiration? Check out these pieces that other people have made.
+
+- [[https://in-thread.sonic-pi.net/t/my-favorite-fx-combo-in-sonic-pi-krush-and-ixi-techno/7809][krush and ixitechno]]
+- [[https://www.youtube.com/watch?v=YvsoWehBbec&pp=ygUMZGogZGF2ZSBlYXN5][DJ_Dave - Easy]]
+- [[https://in-thread.sonic-pi.net/t/how-to-create-a-bassline/5186/5][12 bar blues]]
+- [[https://gist.github.com/xavriley/71b255775829b486249b][Dubstep]]
+- [[https://in-thread.sonic-pi.net/t/drum-computer-with-patterns-swing-easy-live-controls/773][Drum machine]]
+- [[https://www.youtube.com/watch?v=6Ue6-BPI-9k&pp=ygUZc3RyYW5nZXIgdGhpbmdzICBzb25pYyBwaQ%3D%3D][Stranger Things]]
+- [[https://in-thread.sonic-pi.net/t/kids-these-days-and-their-lofi-type-beats/6888][Lofi beats]]
+# - [[https://in-thread.sonic-pi.net/t/lofi-house-my-first-code/6834][Lofi house]]
+# - [[https://in-thread.sonic-pi.net/t/looking-for-a-lofi-tape-effect/3136][Lofi tape effect]]
+
+Other reference material
+
+- [[https://sonic-pi.mehackit.org/exercises/en/10-cheatsheet/01-cheatsheet.html][mehackit cheat sheet]]
+- [[https://sonic-pi.mehackit.org/exercises/en/11-templates/01-examples.html][mehackit workshop examples]]
