@@ -1,4 +1,10 @@
-# 1
+# LoFi
+
+Try the drum samples above and chord progressions below in your work!
+
+Credit: [chords](https://www.youtube.com/watch?v=S5UsIl2JIhY), [samples](https://www.edmprod.com/lofi-hip-hop/)
+
+## Chord progression 1
 
 ```ruby
 # B-minor-ninth chord
@@ -30,7 +36,7 @@ play (chord :b2, :m9, num_octaves: 2)
 sleep 2
 ```
 
-# 2
+## Chord progression 2
 
 ```ruby
 # enharmonic equivalent to minor-ninth chord above G#
@@ -53,7 +59,7 @@ play (chord :bb2, :m9, num_octaves: 2)
 sleep 2
 ```
 
-# 3
+## Chord progression 3
 
 ```ruby
 # F#-minor seventh chord
@@ -73,7 +79,7 @@ play (chord :d3, :maj9, num_octaves: 2)
 sleep 2
 ```
 
-# 4
+## Chord progression 4
 
 ```ruby
 # enharmonic equivalent to minor triad above Eb
@@ -108,7 +114,7 @@ play (chord :d3, num_octaves: 2)
 sleep 2
 ```
 
-# 5
+## Chord progression 5
 
 ```ruby
 # E-minor-ninth chord
@@ -128,7 +134,7 @@ play (chord :d3, :m7, num_octaves: 2)
 sleep 2
 ```
 
-# 6
+## Chord progression 6
 
 ```ruby
 # C-major seventh chord
@@ -157,7 +163,7 @@ play (chord :e2, :m7, num_octaves: 2)
 sleep 2
 ```
 
-# 7
+## Chord progression 7
 
 ```ruby
 # C-minor-ninth chord
@@ -174,7 +180,7 @@ play (chord :eb2, :maj9, num_octaves: 2)
 sleep 2
 ```
 
-# 8
+## Chord progression 8
 
 ```ruby
 # E-minor triad
@@ -191,7 +197,7 @@ play (chord :b2, :m7, num_octaves: 2)
 sleep 2
 ```
 
-# 9
+## Chord progression 9
 
 ```ruby
 # A-minor-ninth chord
@@ -220,7 +226,7 @@ play (chord :a2, :m7, num_octaves: 2)
 sleep 2
 ```
 
-# 10
+## Chord progression 10
 
 ```ruby
 # A-dorian pentachord (?)
@@ -237,7 +243,7 @@ play (chord :e3, :m9, num_octaves: 2)
 sleep 2
 ```
 
-# 11
+## Chord progression 11
 
 ```ruby
 # G-major seventh chord
@@ -254,7 +260,7 @@ play (chord :f3, "7", num_octaves: 2)
 sleep 2
 ```
 
-# 12
+## Chord progression 12
 
 ```ruby
 # F-major seventh chord
@@ -268,7 +274,7 @@ play (chord :e3, :minor, num_octaves: 2)
 sleep 2
 ```
 
-# 13
+## Chord progression 13
 
 ```ruby
 # enharmonic equivalent to minor triad above Bb
@@ -297,7 +303,7 @@ play (chord :bb2, :minor, num_octaves: 2)
 sleep 2
 ```
 
-# 14
+## Chord progression 14
 
 ```ruby
 # A-minor seventh chord
@@ -314,7 +320,7 @@ play (chord :g2, num_octaves: 2)
 sleep 2
 ```
 
-# 15
+## Chord progression 15
 
 ```ruby
 # A-minor-ninth chord
@@ -328,7 +334,7 @@ play (chord :b2, :m7, num_octaves: 2)
 sleep 2
 ```
 
-# 16
+## Chord progression 16
 
 ```ruby
 # F-major-ninth chord
@@ -357,7 +363,7 @@ play (chord :f2, "7", num_octaves: 2)
 sleep 2
 ```
 
-# 17
+## Chord progression 17
 
 ```ruby
 # E-minor triad
@@ -386,7 +392,7 @@ play (chord :d3, :m9, num_octaves: 2)
 sleep 2
 ```
 
-# 18
+## Chord progression 18
 
 ```ruby
 # enharmonic equivalent to minor seventh chord above Eb
@@ -421,7 +427,7 @@ play (chord :cs3, num_octaves: 2)
 sleep 2
 ```
 
-# 19
+## Chord progression 19
 
 ```ruby
 # C-incomplete dominant-seventh chord
@@ -450,7 +456,7 @@ play (chord :eb2, :m9, num_octaves: 2)
 sleep 2
 ```
 
-# 20
+## Chord progression 20
 
 ```ruby
 # C-minor seventh chord

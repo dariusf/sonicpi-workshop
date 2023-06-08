@@ -225,8 +225,7 @@ end
 Credit to [[https://sonic-pi.mehackit.org/exercises/en/04-generate-sounds/04-chord-progressions.html][mehackit]]
 ** Lofi Hip Hop
 - [[https://www.edmprod.com/lofi-hip-hop/][How-to]]
-- Check [[lofi][lofi]] for drum samples
-- [[lofi/chords.md][Chord progressions]] ([[https://www.youtube.com/watch?v=S5UsIl2JIhY][preview]])
+- [[lofi][Drum samples and chord progressions]]
 - [[https://old.reddit.com/r/Drumkits/comments/kne8lz/good_lofi_drum_one_shots/][More drum samples]]
 - [[https://in-thread.sonic-pi.net/t/looking-for-a-lofi-tape-effect/3136][Effect suggestions]]
 * Next steps

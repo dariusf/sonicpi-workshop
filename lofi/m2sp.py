@@ -47,8 +47,11 @@ def translate(file):
 
 if __name__ == "__main__":
   d = sys.argv[1]
+  print('# LoFi\n')
+  print("Try the drum samples above and chord progressions below in your work!\n")
+  print('Credit: [chords](https://www.youtube.com/watch?v=S5UsIl2JIhY), [samples](https://www.edmprod.com/lofi-hip-hop/)\n')
   for file in range(1, 21):
-    print(f'# {file}\n')
+    print(f'## Chord progression {file}\n')
     print('```ruby')
     translate(f'{d}/{file}.mid')
     print('```\n')
