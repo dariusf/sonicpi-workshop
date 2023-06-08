@@ -233,6 +233,10 @@ live_loop :perc1 do
 end
 #+end_src
 Credit to [[https://sonic-pi.mehackit.org/exercises/en/04-generate-sounds/04-chord-progressions.html][mehackit]]
+* Lofi Hip Hop
+- [[https://www.edmprod.com/lofi-hip-hop/][How-to]]
+- [[https://old.reddit.com/r/Drumkits/comments/kne8lz/good_lofi_drum_one_shots/][Drums]] ([[https://old.reddit.com/r/Drumkits/search?q=Lofi&restrict_sr=on][search Reddit]] for more)
+- [[lofi/chords.md][Chord progressions]] ([[https://www.youtube.com/watch?v=S5UsIl2JIhY][preview]])
 * Next steps
 
 Check out what other people are doing and remix their work! Good places to go are the Sonic Pi [[https://sonic-pi.net/tutorial.html][tutorial]], [[https://in-thread.sonic-pi.net/][forums]], or other people's YouTube channels
