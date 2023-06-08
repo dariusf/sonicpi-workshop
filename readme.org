@@ -9,19 +9,21 @@ sample :drum_splash_hard, amp: 1.5
 #+end_src
 ** Loops
 #+begin_src ruby
-4.times do
-  sample :drum_cymbal_closed
-  sleep 0.5
-end
-
 live_loop :drums do
+  4.times do
+    sample :drum_bass_hard
+    sleep 0.5
+    sample :drum_cymbal_closed
+    sleep 0.5
+    sample :drum_snare_hard
+    sleep 0.5
+    sample :drum_cymbal_closed
+    sleep 0.5
+  end
+
   sample :drum_bass_hard
-  sleep 0.25
-  sample :drum_cymbal_closed
-  sleep 0.25
-  sample :drum_snare_hard
-  sleep 0.25
-  sample :drum_cymbal_closed
+  sleep 0.75
+  sample :drum_bass_hard
   sleep 0.25
 end
 #+end_src
@@ -74,7 +76,7 @@ live_loop :my_tune do
 end
 #+end_src
 [[https://sonic-pi.net/tutorial.html#section-A-13][Credit]]
-** Tick
+** Tick and look
 #+begin_src ruby
 use_synth :piano
 play [:c, :e, :g]
@@ -91,7 +93,7 @@ end
 [[scale.png]]
 #+begin_src ruby
 live_loop :up_and_down do
-  use_synth :dsaw
+  use_synth :sine
   play (scale :c4, :major_pentatonic).reflect.butlast.tick
   sleep 0.25
 end
@@ -135,41 +137,29 @@ with_fx :slicer do
     sleep 2
   end
 end
-#+end_src
-* Examples
-** Basic drums
-#+begin_src ruby
-sample :drum_roll, attack: 0.5, release: 0, sustain: 2.5
-sleep 3
-sample :drum_splash_hard
-
-4.times do
-  sample :drum_bass_hard
-  sleep 0.5
-  sample :drum_cymbal_closed
-  sleep 0.5
-  sample :drum_snare_hard
-  sleep 0.5
-  sample :drum_cymbal_closed
-  sleep 0.5
-end
-
-sample :drum_bass_hard
-#+end_src
-** Drum machine
-#+begin_src ruby
-use_bpm 90
-live_loop :drums do
-  use_random_seed 2021
-  16.times do
-    tick
-    sample :drum_bass_hard  if pattern "x-x-----x-x--x--"
-    sample :drum_snare_hard if one_in 2
-    sample :drum_cymbal_closed
-    sleep 0.25
+with_fx :wobble, phase: 0.25, invert_wave: 1 do
+  live_loop :melody do
+    use_random_seed 20
+    use_synth :fm
+    6.times do
+      play (chord :eb5, :minor7).shuffle.tick
+      sleep 0.5
+    end
   end
 end
 #+end_src
+** Control
+#+begin_src ruby
+notes = (scale :e3, :minor_pentatonic)
+sn = synth :prophet, note: :e1, release: 8, cutoff: 100
+sleep 1
+16.times do
+  control sn, note: notes.tick, pan: rrand(-1, 1)
+  sleep 0.125
+end
+#+end_src
+[[https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/doc/tutorial/A.10-controlling-your-sound.md][Credit]]
+* Examples
 ** Song generator
 #+begin_src ruby
 # chords = [(chord :C, :minor7), (chord :Ab, :major7),
@@ -233,30 +223,31 @@ live_loop :perc1 do
 end
 #+end_src
 Credit to [[https://sonic-pi.mehackit.org/exercises/en/04-generate-sounds/04-chord-progressions.html][mehackit]]
-* Lofi Hip Hop
+** Lofi Hip Hop
 - [[https://www.edmprod.com/lofi-hip-hop/][How-to]]
-- [[https://old.reddit.com/r/Drumkits/comments/kne8lz/good_lofi_drum_one_shots/][Drums]] ([[https://old.reddit.com/r/Drumkits/search?q=Lofi&restrict_sr=on][search Reddit]] for more)
+- Check [[lofi][lofi]] for drum samples
 - [[lofi/chords.md][Chord progressions]] ([[https://www.youtube.com/watch?v=S5UsIl2JIhY][preview]])
+- [[https://old.reddit.com/r/Drumkits/comments/kne8lz/good_lofi_drum_one_shots/][More drum samples]]
+- [[https://in-thread.sonic-pi.net/t/looking-for-a-lofi-tape-effect/3136][Effect suggestions]]
 * Next steps
 
-Check out what other people are doing and remix their work! Good places to go are the Sonic Pi [[https://sonic-pi.net/tutorial.html][tutorial]], [[https://in-thread.sonic-pi.net/][forums]], or other people's YouTube channels
+Check out what other people are doing and remix their work! Good places to go are the Sonic Pi [[https://sonic-pi.net/tutorial.html][tutorial]], [[https://in-thread.sonic-pi.net/][forums]], or other people's YouTube channels.
 
 Need help tying your song together?
 
 - [[https://b.shittyrecording.studio/file/shittyrec/print/Pocket+Operations+(2019-07-01).pdf][Drum patterns]]
 - [[https://sonic-pi.mehackit.org/exercises/en/09-keys-chords-and-scales/01-piano.html][Note names (and sounds!) and chord progressions]]
+- [[https://old.reddit.com/r/Drumkits/search?q=Lofi&restrict_sr=on\\][r/DrumKits]] is a great place to find samples
 
 Need inspiration? Check out these pieces that other people have made.
 
-- [[https://in-thread.sonic-pi.net/t/my-favorite-fx-combo-in-sonic-pi-krush-and-ixi-techno/7809][krush and ixitechno]]
 - [[https://www.youtube.com/watch?v=YvsoWehBbec&pp=ygUMZGogZGF2ZSBlYXN5][DJ_Dave - Easy]]
 - [[https://in-thread.sonic-pi.net/t/how-to-create-a-bassline/5186/5][12 bar blues]]
+- [[https://www.youtube.com/watch?v=6Ue6-BPI-9k&pp=ygUZc3RyYW5nZXIgdGhpbmdzICBzb25pYyBwaQ%3D%3D][Stranger Things]]
+- [[https://in-thread.sonic-pi.net/t/my-favorite-fx-combo-in-sonic-pi-krush-and-ixi-techno/7809][krush and ixitechno]]
 - [[https://gist.github.com/xavriley/71b255775829b486249b][Dubstep]]
 - [[https://in-thread.sonic-pi.net/t/drum-computer-with-patterns-swing-easy-live-controls/773][Drum machine]]
-- [[https://www.youtube.com/watch?v=6Ue6-BPI-9k&pp=ygUZc3RyYW5nZXIgdGhpbmdzICBzb25pYyBwaQ%3D%3D][Stranger Things]]
 - [[https://in-thread.sonic-pi.net/t/kids-these-days-and-their-lofi-type-beats/6888][Lofi beats]]
-# - [[https://in-thread.sonic-pi.net/t/lofi-house-my-first-code/6834][Lofi house]]
-# - [[https://in-thread.sonic-pi.net/t/looking-for-a-lofi-tape-effect/3136][Lofi tape effect]]
 
 Other reference material
 
