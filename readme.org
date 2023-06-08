@@ -90,6 +90,13 @@ live_loop :play do
 end
 #+end_src
 ** Scales
+#+begin_src ruby
+use_synth :prophet
+14.times do
+  play (scale :c4, :major, num_octaves: 2).tick
+  sleep 0.25
+end
+#+end_src
 [[scale.png]]
 #+begin_src ruby
 live_loop :up_and_down do
