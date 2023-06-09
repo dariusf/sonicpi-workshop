@@ -3,10 +3,17 @@
 Sonic Pi is a new musical instrument that you play by writing programs!
 ** Samples
 #+begin_src ruby
-sample :drum_roll, attack: 1, release: 0, sustain: 2
-sleep 3
+sample :drum_roll
+sleep 6
 sample :drum_splash_hard, amp: 1.5
 #+end_src
+** Synths
+[[adsr.png]]
+#+begin_src ruby
+use_synth :fm
+play :c, attack: 1, decay: 0, sustain: 0, release: 1, amp: 0.5, pan: rrand(-0.5,0.5)
+#+end_src
+[[https://sonic-pi.net/tutorial.html#section-A-13][Credit]]
 ** Loops
 #+begin_src ruby
 live_loop :drums do
@@ -27,13 +34,6 @@ live_loop :drums do
   sleep 0.25
 end
 #+end_src
-** Synths
-[[adsr.png]]
-#+begin_src ruby
-use_synth :fm
-play :c, attack: 1, decay: 0, sustain: 0, release: 1, amp: 0.5, pan: rrand(-0.5,0.5)
-#+end_src
-[[https://sonic-pi.net/tutorial.html#section-A-13][Credit]]
 ** Notes
 #+begin_src ruby
 live_loop :bass do
