@@ -1,7 +1,6 @@
 #+OPTIONS: ^:nil
 * Making Music with Sonic Pi
-#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
-[[top.jpeg]]
+#+html: <p align="center"><img src="top.jpeg" /></p>
 
 Sonic Pi is a new musical instrument that you play by writing programs!
 
