@@ -1,6 +1,11 @@
 #+OPTIONS: ^:nil
 * Making Music with Sonic Pi
+#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+[[top.jpeg]]
+
 Sonic Pi is a new musical instrument that you play by writing programs!
+
+Check out the [[Coding like a DJ.pdf][handout]]! Credit to [[https://charissefoo.me/][Charisse]].
 ** Samples
 #+begin_src ruby
 sample :drum_roll
