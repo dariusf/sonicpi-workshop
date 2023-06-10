@@ -152,7 +152,7 @@ with_fx :wobble, phase: 0.25, invert_wave: 1 do
   live_loop :melody do
     use_random_seed 20
     use_synth :fm
-    6.times do
+    8.times do
       play (chord :eb5, :minor7).shuffle.tick
       sleep 0.5
     end
